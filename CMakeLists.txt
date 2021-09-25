@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 project(matrix-cpp)
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(SOURCE_EXE main/main.cpp)
+set(SOURCE_LIB include/matrix.cpp)
 
-include_directories("include/")
+add_library(matrix STATIC ${SOURCE_LIB})
+add_executable(main ${SOURCE_EXE})
 
-add_executable(matrix-cpp main/main.cpp)
+target_link_libraries(main matrix)
