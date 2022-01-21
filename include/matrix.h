@@ -18,8 +18,8 @@ class Matrix {
         /** Generate matrix with random integers in the range [0:9] */
         Matrix& populateRandom();
 
-        /** Returns transpose object Matrix of the current Matrix*/
-        Matrix transpose();
+        /** Transpose current Matrix */
+        Matrix& transpose();
 
         /** Returns trace of the Matrix */
         double trace();

@@ -102,15 +102,13 @@ ostream& operator << (ostream& s, const Matrix &m) {
     return s;
 }
 
-Matrix Matrix::transpose() {
-    shared_ptr<Matrix> c(new Matrix(cols(),rows()));
-
+Matrix& Matrix::transpose() {
     for (int i = 0; i < rows(); i++) {
         for (int j = 0; j < cols(); j++) {
-            (*c)(j, i) = data[i][j];
+            (*this)(j, i) = data[i][j];
         }
     }
-    return *c;
+    return *this;
 }
 
 double Matrix::trace() {
