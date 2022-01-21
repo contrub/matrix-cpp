@@ -1,5 +1,5 @@
-#ifndef UNTITLED_MATRIX_H
-#define UNTITLED_MATRIX_H
+#ifndef MATRIX_H
+#define MATRIX_H
 
 #include <iostream>
 #include <vector>
