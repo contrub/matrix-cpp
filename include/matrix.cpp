@@ -88,16 +88,12 @@ double& Matrix::operator () (int i, int j) const {
 }
 
 ostream& operator << (ostream& s, const Matrix &m) {
-    s << "[ " << endl;
-
     for (int i = 0; i < m.rows(); i++) {
-        s << "\t" << "[";
         for (int j = 0; j < m.cols(); j++) {
             s << " " << m(i,j) << " ";
         }
-        s << "]" << endl;
+        s << endl;
     }
-    s << "]" << endl;
 
     return s;
 }
