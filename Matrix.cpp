@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <memory>
 
-#include "matrix.h"
+#include "Matrix.h"
 
 using namespace std;
 
