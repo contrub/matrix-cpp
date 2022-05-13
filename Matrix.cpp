@@ -7,8 +7,6 @@
 
 #include "Matrix.h"
 
-using namespace std;
-
 Matrix::Matrix(int r, int c) {
     assert(r >= 0 && c >= 0);
 
@@ -19,21 +17,27 @@ Matrix::Matrix(int r, int c) {
     }
 }
 
+Matrix::Matrix(std::vector<std::vector<double>>& matrix) {
+    assert(!matrix.empty() && !matrix[0].empty());
 
-int Matrix::rows() const {
-    return data.size();
-}
+    for (int i = 0; i < matrix.size() - 1; i++) {
+        assert(matrix[i].size() == matrix[i].size());
+    }
 
-int Matrix::cols() const {
-    if (rows() == 0) return 0;
+    data.resize(matrix.size());
 
-    return data[0].size();
+    for (int i = 0; i < matrix.size(); i++) {
+        data[i].resize(matrix[i].size());
+        for (int j = 0; j < matrix[i].size(); j++) {
+            data[i][j] = matrix[i][j];
+        }
+    }
 }
 
 Matrix& Matrix::populateRandom() {
     for (int i = 0; i < rows(); i++) {
         for (int j = 0; j < cols(); j++) {
-                data[i][j] = rand() % 10;
+            data[i][j] = rand() % 10;
         }
     }
 
@@ -43,7 +47,7 @@ Matrix& Matrix::populateRandom() {
 Matrix operator + (const Matrix &a, const Matrix &b){
     assert(a.cols() == b.cols() && a.rows() == b.rows());
 
-    shared_ptr<Matrix> c(new Matrix(a.rows(),a.cols()));
+    std::shared_ptr<Matrix> c(new Matrix(a.rows(),a.cols()));
 
     for (int i = 0; i < a.rows(); i++) {
         for (int j=0;j<a.cols();j++) {
@@ -57,7 +61,7 @@ Matrix operator + (const Matrix &a, const Matrix &b){
 Matrix operator - (const Matrix &a, const Matrix &b){
     assert(a.cols() == b.cols() && a.rows() == b.rows());
 
-    shared_ptr<Matrix> c(new Matrix(a.rows(), a.cols()));
+    std::shared_ptr<Matrix> c(new Matrix(a.rows(), a.cols()));
 
     for (int i = 0; i < a.rows(); i++) {
         for (int j = 0; j < a.cols(); j++) {
@@ -68,8 +72,24 @@ Matrix operator - (const Matrix &a, const Matrix &b){
     return *c;
 }
 
+Matrix operator * (const Matrix &a, const Matrix &b){
+    assert(a.cols() == b.rows());
+
+    std::shared_ptr<Matrix> c(new Matrix(a.rows(), a.cols()));
+
+    for (int i = 0; i < a.rows(); i++) {
+        for (int j = 0; j < a.rows(); j++) {
+            for (int k = 0; k < a.rows(); k++) {
+                (*c)(i, j) = a(i, k) * b(k, j);
+            }
+        }
+    }
+
+    return *c;
+}
+
 Matrix operator * (const double s, const Matrix &a) {
-    shared_ptr<Matrix> b(new Matrix(a.rows(), a.cols()));
+    std::shared_ptr<Matrix> b(new Matrix(a.rows(), a.cols()));
 
     for (int i = 0; i < a.rows(); i++) {
         for (int j = 0; j < a.cols(); j++) {
@@ -87,12 +107,12 @@ double& Matrix::operator () (int i, int j) const {
     return data[i][j];
 }
 
-ostream& operator << (ostream& s, const Matrix &m) {
+std::ostream& operator << (std::ostream& s, const Matrix &m) {
     for (int i = 0; i < m.rows(); i++) {
         for (int j = 0; j < m.cols(); j++) {
-            s << " " << m(i,j) << " ";
+            s << " " << m(i, j) << " ";
         }
-        s << endl;
+        s << std::endl;
     }
 
     return s;

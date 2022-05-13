@@ -2,6 +2,9 @@
 
 A simple mathematical matrix class written in C++. 
 
+- Initialization
+  - Rows and Columns sizes
+  - 2D vector
 - Methods:
   - Interactions
     - Transposition matrix
@@ -14,5 +17,6 @@ A simple mathematical matrix class written in C++.
 - Operators
    - Addition matrices
    - Subtraction matrices
+   - Multiplication matrices
    - Multiplication matrix by a number
    - Output in human-readable view
